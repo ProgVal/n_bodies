@@ -12,6 +12,8 @@ jQuery UI Touch Punch by David Furfero (http://touchpunch.furf.com/) - enables t
 UltButtons by Fabrício Matté (http://ultcombo.github.io/UltButtons/) - Improves jQuery UI Checkbox/Radio Buttons functionality.
 */
 
+var G = 6.67*Math.pow(10, -2);
+
 window.addEventListener("load", windowLoadHandler, false);
 
 //for debug messages
@@ -361,7 +363,7 @@ function canvasApp() {
         time = (time + tInc) % (2*Math.PI);
         
         //update particles
-        setParticlePositions(time);
+        updateParticlePositions(tInc);
         
         //draw particles
         drawParticles();
@@ -407,7 +409,7 @@ function canvasApp() {
             particles.push(p);
         }
         
-        setParticlePositions(time);
+        //setParticlePositions(time); // TODO: what does this do?
         resetLastPositions();
     }
     
@@ -518,15 +520,55 @@ function canvasApp() {
 
     }
     
-    function setParticlePositions(t) {
-        var i;
-        var len;
+    function setInitialParticlePositions() {
+        console.log("TODO: implement setInitialParticlePositions"); // TODO
         len = particles.length;
         for (i = 0; i < len; i++) {
             particles[i].lastX = particles[i].x;
             particles[i].lastY = particles[i].y;
-            particles[i].x = fourierSum(t,xSinFreq, xSinCoeff, xCosFreq, xCosCoeff, particles[i].phase);
-            particles[i].y = fourierSum(t,ySinFreq, ySinCoeff, yCosFreq, yCosCoeff, particles[i].phase);
+            particles[i].x = i/20;
+            particles[i].y = (i*i+5)/20 - 0.5;
+            particles[i].speed_x = 0;
+            particles[i].speed_y = 0;
+            particles[i].mass = 1;
+        }
+    }
+
+    function updateParticlePositions(dInc) {
+        var i;
+        var len;
+        len = particles.length;
+        for (i = 0; i < len; i++) {
+            acc_x = 0;
+            acc_y = 0;
+            x1 = particles[i].x;
+            y1 = particles[i].y;
+            speed_x = particles[i].speed_x;
+            speed_y = particles[i].speed_y;
+            dspeed_x = 0;
+            dspeed_y = 0;
+            mass1 = particles[i].mass;
+            for (j = 0; j < len; j++) {
+                if (i == j)
+                    continue;
+                x2 = particles[j].x;
+                y2 = particles[j].y;
+                diff_x = x2 - x1;
+                diff_y = y2 - y1;
+                mass2 = particles[j].mass;
+                acc = G * mass2 / (diff_x*diff_x + diff_y*diff_y);
+                acc_x += acc * Math.sin(Math.atan2(diff_x, diff_y));
+                acc_y += acc * Math.sin(Math.atan2(diff_y, diff_x));
+            }
+
+            particles[i].lastX = particles[i].x;
+            particles[i].lastY = particles[i].y;
+            particles[i].speed_x += acc_x*dInc;
+            particles[i].speed_y += acc_y*dInc;
+            dpos_x = particles[i].speed_x*dInc;
+            dpos_y = particles[i].speed_y*dInc;
+            particles[i].x += dpos_x;
+            particles[i].y += dpos_y;
         }
     }
     
@@ -626,7 +668,7 @@ function canvasApp() {
             drawingStaticOrbit = false;
         }
         
-        setParticlePositions(0);
+        setInitialParticlePositions();
         resetLastPositions();
         setStartPositions();
         
@@ -683,4 +725,5 @@ function canvasApp() {
     }
     */    
 }
+
 
