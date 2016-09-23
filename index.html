@@ -18,173 +18,173 @@
 <title>HTML5 Canvas Generative Art</title>
 
 <style type="text/css">
-	body {background-color:#000; color:#333333;} 
-	h4 {font-family: sans-serif; color:#333333; font-size:16px;}
-	h3 {font-family: sans-serif; color:#333333;}
-	p {font-family: sans-serif; color:#ccc; font-size:12px;}
-	#caption {position:absolute; width:480px; text-align:center; top:480px; z-index:1}
-	a {
-		font-family: sans-serif;
-		font-weight:bold;
-		color:#4b7d96;
-		text-decoration:none;
-	}
-	form {font-family: sans-serif; color:#888888; font-size:12px;}
-	.radioLabel {font-family:Arial, Helvetica, sans-serif; color:#ddd; font-size:11px; width:190px; text-align:left;}
-	
-	#titleText {
-		font-family: sans-serif;
-		color: #db7;
-		font-size: 17px;
-		font-style:italic;
-		height:36px;
-		line-height:36px;
-		padding:0px 0px 0px 10px;
-	}
-	
-	#creditsText {
-		font-family: sans-serif;
-		color:#ccc;
-		font-size: 12px;
-		margin-top:25px;
-		padding-left:10px;
-	}
-	
-	#controlHeader {
-		font-family: sans-serif;
-		color:#ccc;
-		font-size: 11px;
-		margin-top: 0px;
-	}
-	
-	#container {
-		width:943px;
-		margin:0px auto;
-	}
-	
-	#canvasContainer {
-		float:left;
-		height:480px;
-		width:480px;
-		margin:0px 10px 0px 0px;
-	}
-	#displayCanvas {
-		height:480px;
-		width:480px;
-	}
-	#particleLayerCanvas {
-		height:480px;
-		width:480px;
-	}
+    body {background-color:#000; color:#333333;} 
+    h4 {font-family: sans-serif; color:#333333; font-size:16px;}
+    h3 {font-family: sans-serif; color:#333333;}
+    p {font-family: sans-serif; color:#ccc; font-size:12px;}
+    #caption {position:absolute; width:480px; text-align:center; top:480px; z-index:1}
+    a {
+        font-family: sans-serif;
+        font-weight:bold;
+        color:#4b7d96;
+        text-decoration:none;
+    }
+    form {font-family: sans-serif; color:#888888; font-size:12px;}
+    .radioLabel {font-family:Arial, Helvetica, sans-serif; color:#ddd; font-size:11px; width:190px; text-align:left;}
+    
+    #titleText {
+        font-family: sans-serif;
+        color: #db7;
+        font-size: 17px;
+        font-style:italic;
+        height:36px;
+        line-height:36px;
+        padding:0px 0px 0px 10px;
+    }
+    
+    #creditsText {
+        font-family: sans-serif;
+        color:#ccc;
+        font-size: 12px;
+        margin-top:25px;
+        padding-left:10px;
+    }
+    
+    #controlHeader {
+        font-family: sans-serif;
+        color:#ccc;
+        font-size: 11px;
+        margin-top: 0px;
+    }
+    
+    #container {
+        width:943px;
+        margin:0px auto;
+    }
+    
+    #canvasContainer {
+        float:left;
+        height:480px;
+        width:480px;
+        margin:0px 10px 0px 0px;
+    }
+    #displayCanvas {
+        height:480px;
+        width:480px;
+    }
+    #particleLayerCanvas {
+        height:480px;
+        width:480px;
+    }
 
-	
-	#panelContainer {
-		float:left;
-		width:443px;
-		margin-left: 10px;
-	}
-		
-	#titleDoubleColumn {
-		float:left;
-		width:443px;
-		height:40px;
-	}
-	
-	.panelDoubleColumn {
-		width:443px;
-	}
-	.panelColumn1 {
-		float:left;
-		width:158px;
-		padding:10px 10px 10px 10px;
-	}
-	
-	.panelColumn2 {
-		float:right;
-		width:220px;
-	}
-	
-	#choreoInfoBox {
-		float:left;
-		width:443px;
-		border: 1px solid #222;
-		border-radius: 10px;
-		background: #080808;
-		margin-top:10px;
-	}
-	#choreoText {
-		padding: 8px 18px 8px 18px;
-		font-family: sans-serif;
-		color:#ccc;
-		font-size: 11px;
-	}
-	#infoBoxHeader {
-		color:#db7;
-		font-size: 13px;
-		font-style:italic;
-	}
-	#infoBoxDescription {
-		color:#ccc;
-		font-style:normal;
-	}
-	#infoBoxComment {
-		color:#ccc;
-		font-style:normal;
-	}
-	
-	.panelGroup {
-		margin-top:5px;
-	}
-	
-	#speedSlider {
-		margin-top:5px;
-		width:150px;
-	}
-	
-	.buttonType1 {
-		font-size:11px;
-		margin-top:10px;
-		width:150px;
-	}
-	.buttonType2 {
-		font-size:11px;
-		width:70px;
-	}
-	
-	#radioHeader {
-		font-family: sans-serif;
-		color:#ccc;
-		font-size: 11px;
-		margin-top: 0px;
-		width:211px;
-		text-align:center;
-	}
-	
-	#navButtons {
-		width:195px;
-		margin: 10px 0px 0px 30px;
-	}
-	
-	#orbitSelect {
-		width:150px;
-		margin-bottom:10px;
-	}
-	
-	#radioContainer {
-		width:211px;
-		margin-top:5px;
-		padding: 0px 0px 0px 9px;
-		height:230px;
-		position:relative;
-		overflow:auto;
-	}
-	
+    
+    #panelContainer {
+        float:left;
+        width:443px;
+        margin-left: 10px;
+    }
+        
+    #titleDoubleColumn {
+        float:left;
+        width:443px;
+        height:40px;
+    }
+    
+    .panelDoubleColumn {
+        width:443px;
+    }
+    .panelColumn1 {
+        float:left;
+        width:158px;
+        padding:10px 10px 10px 10px;
+    }
+    
+    .panelColumn2 {
+        float:right;
+        width:220px;
+    }
+    
+    #choreoInfoBox {
+        float:left;
+        width:443px;
+        border: 1px solid #222;
+        border-radius: 10px;
+        background: #080808;
+        margin-top:10px;
+    }
+    #choreoText {
+        padding: 8px 18px 8px 18px;
+        font-family: sans-serif;
+        color:#ccc;
+        font-size: 11px;
+    }
+    #infoBoxHeader {
+        color:#db7;
+        font-size: 13px;
+        font-style:italic;
+    }
+    #infoBoxDescription {
+        color:#ccc;
+        font-style:normal;
+    }
+    #infoBoxComment {
+        color:#ccc;
+        font-style:normal;
+    }
+    
+    .panelGroup {
+        margin-top:5px;
+    }
+    
+    #speedSlider {
+        margin-top:5px;
+        width:150px;
+    }
+    
+    .buttonType1 {
+        font-size:11px;
+        margin-top:10px;
+        width:150px;
+    }
+    .buttonType2 {
+        font-size:11px;
+        width:70px;
+    }
+    
+    #radioHeader {
+        font-family: sans-serif;
+        color:#ccc;
+        font-size: 11px;
+        margin-top: 0px;
+        width:211px;
+        text-align:center;
+    }
+    
+    #navButtons {
+        width:195px;
+        margin: 10px 0px 0px 30px;
+    }
+    
+    #orbitSelect {
+        width:150px;
+        margin-bottom:10px;
+    }
+    
+    #radioContainer {
+        width:211px;
+        margin-top:5px;
+        padding: 0px 0px 0px 9px;
+        height:230px;
+        position:relative;
+        overflow:auto;
+    }
+    
 </style>
 
 </head>
 <body>
 <div id="container">
-	<div id="canvasContainer" >
+    <div id="canvasContainer" >
         <canvas id="displayCanvas" width="480px" height="480px" style="position: absolute; z-index: 0;">
             Your browser does not support HTML5 canvas.
         </canvas>
@@ -192,9 +192,9 @@
         <canvas id="particleLayerCanvas" width="480px" height="480px" style="position: absolute; z-index: 2;"></canvas>
     </div>
     <div id="panelContainer">
-    	<div id="titleDoubleColumn">
-    		<div id="titleText">n-Body Choreographies&nbsp;&nbsp;</div>
-    	</div>
+        <div id="titleDoubleColumn">
+            <div id="titleText">n-Body Choreographies&nbsp;&nbsp;</div>
+        </div>
         <div class="panelDoubleColumn">
             <div class="panelColumn1">
                 <form>
@@ -225,18 +225,18 @@
                 </div>
                 <div id="navButtons">
                 <form>
-				<input type="button" id="btnPrevOrbit" class="buttonType2" value="&#9650; prev"/>
-				<input type="button" id="btnNextOrbit" class="buttonType2" value="&#9660; next"/>
-				</form>
+                <input type="button" id="btnPrevOrbit" class="buttonType2" value="&#9650; prev"/>
+                <input type="button" id="btnNextOrbit" class="buttonType2" value="&#9660; next"/>
+                </form>
                 </div>
             </div>
             <div id="choreoInfoBox">
-            	<div id="choreoText">
-					<span id="infoBoxHeader"></span><br/><br/>
-        			<span id="infoBoxDescription"></span><br/><br/>
-        			<span id="infoBoxComment"></span>
+                <div id="choreoText">
+                    <span id="infoBoxHeader"></span><br/><br/>
+                    <span id="infoBoxDescription"></span><br/><br/>
+                    <span id="infoBoxComment"></span>
                 </div>
-       		</div>
+               </div>
        </div>
        
   </div>
