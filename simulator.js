@@ -543,20 +543,6 @@ function canvasApp() {
         }
     }
     
-    function fourierSum(t,sinFreqs,sinCoeffs,cosFreqs,cosCoeffs,phaseShift) {
-        var i, len;
-        var sum = 0;
-        len = sinCoeffs.length;
-        for (i = 0; i < len; i++) {
-            sum += sinCoeffs[i]*Math.sin(sinFreqs[i]*(t + phaseShift));
-        }
-        len = cosCoeffs.length;
-        for (i = 0; i < len; i++) {
-            sum += cosCoeffs[i]*Math.cos(cosFreqs[i]*(t + phaseShift));
-        }
-        return sum;
-    }
-        
     function speedSliderHandler() {
         setTInc();    
     }
