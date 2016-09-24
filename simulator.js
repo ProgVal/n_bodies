@@ -64,10 +64,6 @@ function canvasApp() {
     var staticOrbitWidth;
     var trailColorLookup;
     
-    var orbitDrawStartTime;
-    var orbitDrawTime;
-    var drawingStaticOrbit;
-    
     var staticOrbitDrawPointsX;
     var staticOrbitDrawPointsY;
     
@@ -151,7 +147,6 @@ function canvasApp() {
         setData(testData);
         
         trajectoriesOn = true;
-        drawingStaticOrbit = true;
         
         //jquery ui elements
         //speed slider
@@ -175,8 +170,6 @@ function canvasApp() {
 
         //set first orbit (includes makeParticles)
         setOrbit(0);
-        
-        orbitDrawStartTime = orbitDrawTime = time = 0;
         
         startAnimation();
     }
@@ -326,13 +319,10 @@ function canvasApp() {
     function trajectoryButtonHandler(e) {
         if (trajectoriesOn) {
             trajectoriesOn = false;
-            drawingStaticOrbit = false;
             trajectoryButton.value = "show trajectories";
             clearScreen();
         }
         else {
-            orbitDrawStartTime = orbitDrawTime = time;
-            drawingStaticOrbit = true;
             setStartPositions();
             trajectoriesOn = true;
             trajectoryButton.value = "hide trajectories";
@@ -349,16 +339,6 @@ function canvasApp() {
         
         //clear particle layer
         clearParticleLayer();
-        
-        if (drawingStaticOrbit) {
-            orbitDrawTime += tInc;
-            if (orbitDrawTime > orbitDrawStartTime + 2*Math.PI/numParticles) {
-                //stop drawing orbit
-                drawingStaticOrbit = false;
-                //draw last segments
-                drawLastSegments();
-            }
-        }        
         
         time = (time + tInc) % (2*Math.PI);
         
@@ -498,22 +478,21 @@ function canvasApp() {
                 context.beginPath();
                 context.moveTo(lastPixX,lastPixY);
                 context.lineTo(pixX, pixY);
+                console.log(lastPixY - pixY);
                 context.stroke();
                 
-                if (drawingStaticOrbit) {
-                    orbitLayerContext.strokeStyle = staticOrbitColor;
-                    orbitLayerContext.lineWidth = staticOrbitWidth;
-                    
-                    dx = staticOrbitDrawPointsX[i] - pixX;
-                    dy = staticOrbitDrawPointsY[i] - pixY;
-                    if (dx*dx + dy*dy > staticOrbitMinDrawDistance*staticOrbitMinDrawDistance) {                
-                        orbitLayerContext.beginPath();
-                        orbitLayerContext.moveTo(staticOrbitDrawPointsX[i],staticOrbitDrawPointsY[i]);
-                        orbitLayerContext.lineTo(pixX, pixY);
-                        orbitLayerContext.stroke();
-                        staticOrbitDrawPointsX[i] = pixX;
-                        staticOrbitDrawPointsY[i] = pixY;
-                    }
+                orbitLayerContext.strokeStyle = staticOrbitColor;
+                orbitLayerContext.lineWidth = staticOrbitWidth;
+
+                dx = staticOrbitDrawPointsX[i] - pixX;
+                dy = staticOrbitDrawPointsY[i] - pixY;
+                if (dx*dx + dy*dy > staticOrbitMinDrawDistance*staticOrbitMinDrawDistance) {
+                    orbitLayerContext.beginPath();
+                    orbitLayerContext.moveTo(staticOrbitDrawPointsX[i],staticOrbitDrawPointsY[i]);
+                    orbitLayerContext.lineTo(pixX, pixY);
+                    orbitLayerContext.stroke();
+                    staticOrbitDrawPointsX[i] = pixX;
+                    staticOrbitDrawPointsY[i] = pixY;
                 }
             }
         }
@@ -659,14 +638,6 @@ function canvasApp() {
         }
         
         time = 0;
-        
-        if (trajectoriesOn) {
-            drawingStaticOrbit = true;
-            orbitDrawStartTime = orbitDrawTime = time;
-        }
-        else {
-            drawingStaticOrbit = false;
-        }
         
         setInitialParticlePositions();
         resetLastPositions();
