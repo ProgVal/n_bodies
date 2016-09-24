@@ -37,14 +37,6 @@ function canvasApp() {
     var orbitName;
     var jsonData;
     var numOrbits;
-    var xSinFreq;
-    var xCosFreq;
-    var ySinFreq;
-    var yCosFreq;
-    var xSinCoeff;
-    var xCosCoeff;
-    var ySinCoeff;
-    var yCosCoeff;
     var tInc;
     var tIncMin, tIncMax;
     var xMin, xMax, yMin, yMax;
@@ -478,7 +470,6 @@ function canvasApp() {
                 context.beginPath();
                 context.moveTo(lastPixX,lastPixY);
                 context.lineTo(pixX, pixY);
-                console.log(lastPixY - pixY);
                 context.stroke();
                 
                 orbitLayerContext.strokeStyle = staticOrbitColor;
@@ -499,18 +490,19 @@ function canvasApp() {
 
     }
     
-    function setInitialParticlePositions() {
+    function setInitialParticlePositions(initial_data) {
         console.log("TODO: implement setInitialParticlePositions"); // TODO
         len = particles.length;
         for (i = 0; i < len; i++) {
-            particles[i].lastX = particles[i].x;
-            particles[i].lastY = particles[i].y;
-            particles[i].x = i/20;
-            particles[i].y = (i*i+5)/20 - 0.5;
-            particles[i].speed_x = 0;
-            particles[i].speed_y = 0;
-            particles[i].mass = 1;
+            particles[i].lastX = initial_data[i].x
+            particles[i].lastY = initial_data[i].y;
+            particles[i].x = initial_data[i].x;
+            particles[i].y = initial_data[i].y;
+            particles[i].speed_x = initial_data[i].v_x;
+            particles[i].speed_y = initial_data[i].v_y;
+            particles[i].mass = initial_data[i].mass;
         }
+        console.log(particles)
     }
 
     function updateParticlePositions(dInc) {
@@ -581,34 +573,7 @@ function canvasApp() {
         
         setInfoText(orbitObject.info);
         
-        numParticles = orbitObject.numParticles;
-        
-        xSinFreq = [];
-        xCosFreq = [];
-        ySinFreq = [];
-        yCosFreq = [];
-        xSinCoeff = [];
-        xCosCoeff = [];
-        ySinCoeff = [];
-        yCosCoeff = [];
-        
-        var arrays;
-        
-        arrays = separateArray(orbitObject.x.sin);
-        xSinFreq = arrays.even.slice(0);
-        xSinCoeff = arrays.odd.slice(0);
-        
-        arrays = separateArray(orbitObject.x.cos);
-        xCosFreq = arrays.even.slice(0);
-        xCosCoeff = arrays.odd.slice(0);
-        
-        arrays = separateArray(orbitObject.y.sin);
-        ySinFreq = arrays.even.slice(0);
-        ySinCoeff = arrays.odd.slice(0);
-        
-        arrays = separateArray(orbitObject.y.cos);
-        yCosFreq = arrays.even.slice(0);
-        yCosCoeff = arrays.odd.slice(0);
+        numParticles = orbitObject.particles.length;
         
         var colors;
         if (!orbitObject.colors) {
@@ -639,7 +604,7 @@ function canvasApp() {
         
         time = 0;
         
-        setInitialParticlePositions();
+        setInitialParticlePositions(orbitObject.particles);
         resetLastPositions();
         setStartPositions();
         
