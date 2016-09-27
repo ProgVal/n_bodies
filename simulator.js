@@ -581,11 +581,11 @@ function canvasApp() {
         makeParticles(colors);
         clearScreen();
                 
-        if (!orbitObject.length) {
+        if (!orbitObject.timeInterval) {
             timeFactor = 1;    
         }
         else {
-            timeFactor = (orbitObject.plotWindow.xMax - orbitObject.plotWindow.xMin)/orbitObject.length;
+            timeFactor = (orbitObject.plotWindow.xMax - orbitObject.plotWindow.xMin)/orbitObject.timeInterval;
         }
         
         time = 0;
