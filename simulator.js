@@ -505,43 +505,128 @@ function canvasApp() {
         console.log(particles)
     }
 
+     // composante en x de l’acceleration de m1 due a l’attraction exercee par m2
+    function accGravit_x(x1,y1,mass1, x2, y2, mass2) {
+        diff_x = x2 - x1;
+        diff_y = y2 - y1;
+        acc = G * mass2 / (diff_x*diff_x + diff_y*diff_y);
+        return acc * Math.sin(Math.atan2(diff_x, diff_y));
+    }
+
+    // composante en y de l’acceleration de m1 due a l’attraction exercee par m2
+    function accGravit_y(x1,y1,mass1, x2, y2, mass2) {
+        diff_x = x2 - x1;
+        diff_y = y2 - y1;
+        acc = G * mass2 / (diff_x*diff_x + diff_y*diff_y);
+        return acc * Math.sin(Math.atan2(diff_y, diff_x));
+    }
+
     function updateParticlePositions(dInc) {
         var i;
         var len;
         len = particles.length;
+        //RK step1
+        interm1 = []; // va contenir k_1 (= 4 nombres) pour chaque particule, k_1 = f(y)
         for (i = 0; i < len; i++) {
-            acc_x = 0;
-            acc_y = 0;
             x1 = particles[i].x;
             y1 = particles[i].y;
             speed_x = particles[i].speed_x;
             speed_y = particles[i].speed_y;
-            dspeed_x = 0;
-            dspeed_y = 0;
             mass1 = particles[i].mass;
-            for (j = 0; j < len; j++) {
+            interm1[i].dx = speed_x;
+            interm1[i].dy = speed_y;
+            interm1[i].dvx = 0;
+            interm1[i].dvy = 0;
+            for(j=0, j < len, j++) {
                 if (i == j)
                     continue;
                 x2 = particles[j].x;
                 y2 = particles[j].y;
-                diff_x = x2 - x1;
-                diff_y = y2 - y1;
                 mass2 = particles[j].mass;
-                acc = G * mass2 / (diff_x*diff_x + diff_y*diff_y);
-                acc_x += acc * Math.sin(Math.atan2(diff_x, diff_y));
-                acc_y += acc * Math.sin(Math.atan2(diff_y, diff_x));
+                interm1[i].dvx += accGravit_x(x1,y1,mass1, x2, y2, mass2);
+                interm1[i].dvy += accGravit_y(x1,y1,mass1, x2, y2, mass2);
             }
+        }
 
+        //RK step2
+        interm2 = []; // va contenir k_2 (= 4 nombres) pour chaque particule, k_2 = f(y + dInc/2 * k_1) 
+        for (i = 0; i < len; i++) {
+            x1 = particles[i].x + dInc/2 * interm1[i].dx;
+            y1 = particles[i].y + dInc/2 * interm1[i].dy;
+            speed_x = particles[i].speed_x+ dInc/2*interm1[i].dvx;
+            speed_y = particles[i].speed_y + dInc/2*interm1[i].dvy;
+            mass1 = particles[i].mass;
+            interm2[i].dx = speed_x ;
+            interm2[i].dy = speed_y;
+            interm2[i].dvx = 0;
+            interm2[i].dvy = 0;
+            for(j=0, j < len, j++) {
+                if (i == j)
+                    continue;
+                x2 = particles[j].x + dInc/2 * interm1[j].dx;
+                y2 = particles[j].y+ dInc/2 * interm1[j].dy;
+                mass2 = particles[j].mass;
+                interm2[i].dvx += accGravit_x(x1,y1,mass1, x2, y2, mass2);
+                interm2[i].dvy += accGravit_y(x1,y1,mass1, x2, y2, mass2);
+            }
+        }
+
+        //RK step 3
+        interm3 = []; // va contenir k_3 (= 4 nombres) pour chaque particule, k_3 = f(y + dInc/2 * k_2) 
+        for (i = 0; i < len; i++) {
+            x1 = particles[i].x + dInc/2 * interm2[i].dx;
+            y1 = particles[i].y + dInc/2 * interm2[i].dy;
+            speed_x = particles[i].speed_x + dInc/2 * interm2[i].dvx;
+            speed_y = particles[i].speed_y + dInc/2 * interm2[i].dvy;
+            mass1 = particles[i].mass;
+            interm3[i].dx = speed_x ;
+            interm3[i].dy = speed_y;
+            interm3[i].dvx = 0;
+            interm3[i].dvy = 0;
+            for(j=0, j < len, j++) {
+                if (i == j)
+                    continue;
+                x2 = particles[j].x + dInc/2 * interm2[j].dx;
+                y2 = particles[j].y + dInc/2 * interm2[j].dy;
+                mass2 = particles[j].mass;
+                interm3[i].dvx += accGravit_x(x1,y1,mass1, x2, y2, mass2);
+                interm3[i].dvy += accGravit_y(x1,y1,mass1, x2, y2, mass2);
+            }
+        }
+
+        //RK step 4
+        interm4 = []; // va contenir k_4 (=4 nombres) pour chaque particule ; k_2 = f(y + dInc * k_3) 
+        for (i = 0; i < len; i++) {
+            x1 = particles[i].x + dInc * interm3[i].dx;
+            y1 = particles[i].y + dInc * interm3[i].dy;
+            speed_x = particles[i].speed_x + dInc * interm3[i].dvx;
+            speed_y = particles[i].speed_y + dInc * interm3[i].dvy;
+            mass1 = particles[i].mass;
+            interm4[i].dx = speed_x ;
+            interm4[i].dy = speed_y;
+            interm4[i].dvx = 0;
+            interm4[i].dvy = 0;
+            for(j=0, j < len, j++) {
+                if (i == j)
+                    continue;
+                x2 = particles[j].x + dInc * interm3[j].dx;
+                y2 = particles[j].y + dInc * interm3[j].dy;
+                mass2 = particles[j].mass;
+                interm4[i].dvx += accGravit_x(x1,y1,mass1, x2, y2, mass2);
+                interm4[i].dvy += accGravit_y(x1,y1,mass1, x2, y2, mass2);
+            }
+        }
+
+        // calcul de la configuration suivante a l’aide de k_1…k_4
+        for (i = 0; i < len; i++) {
             particles[i].lastX = particles[i].x;
             particles[i].lastY = particles[i].y;
-            particles[i].speed_x += acc_x*dInc;
-            particles[i].speed_y += acc_y*dInc;
-            dpos_x = particles[i].speed_x*dInc;
-            dpos_y = particles[i].speed_y*dInc;
-            particles[i].x += dpos_x;
-            particles[i].y += dpos_y;
+            particles[i].speed_x += dInc/6*(interm1[i].dvx + 2*interm2[i].dvx + 2*interm3[i].dvx + interm4[i].dvx);
+            particles[i].speed_y += dInc/6*(interm1[i].dvy + 2*interm2[i].dvy + 2*interm3[i].dvy + interm4[i].dvy);
+            particles[i].x += dInc/6*(interm1[i].dx + 2*interm2[i].dx + 2*interm3[i].dx + interm4[i].dx);
+            particles[i].y += dInc/6*(interm1[i].dy + 2*interm2[i].dy + 2*interm3[i].dy + interm4[i].dy);
         }
-    }
+    }    
     
     function speedSliderHandler() {
         setTInc();    
