@@ -533,11 +533,12 @@ function canvasApp() {
             speed_x = particles[i].speed_x;
             speed_y = particles[i].speed_y;
             mass1 = particles[i].mass;
+            interm1[i] = {};
             interm1[i].dx = speed_x;
             interm1[i].dy = speed_y;
             interm1[i].dvx = 0;
             interm1[i].dvy = 0;
-            for(j=0, j < len, j++) {
+            for(j=0; j < len; j++) {
                 if (i == j)
                     continue;
                 x2 = particles[j].x;
@@ -556,11 +557,12 @@ function canvasApp() {
             speed_x = particles[i].speed_x+ dInc/2*interm1[i].dvx;
             speed_y = particles[i].speed_y + dInc/2*interm1[i].dvy;
             mass1 = particles[i].mass;
+            interm2[i] = {};
             interm2[i].dx = speed_x ;
             interm2[i].dy = speed_y;
             interm2[i].dvx = 0;
             interm2[i].dvy = 0;
-            for(j=0, j < len, j++) {
+            for(j=0; j < len; j++) {
                 if (i == j)
                     continue;
                 x2 = particles[j].x + dInc/2 * interm1[j].dx;
@@ -579,11 +581,12 @@ function canvasApp() {
             speed_x = particles[i].speed_x + dInc/2 * interm2[i].dvx;
             speed_y = particles[i].speed_y + dInc/2 * interm2[i].dvy;
             mass1 = particles[i].mass;
+            interm3[i] = {};
             interm3[i].dx = speed_x ;
             interm3[i].dy = speed_y;
             interm3[i].dvx = 0;
             interm3[i].dvy = 0;
-            for(j=0, j < len, j++) {
+            for(j=0; j < len; j++) {
                 if (i == j)
                     continue;
                 x2 = particles[j].x + dInc/2 * interm2[j].dx;
@@ -602,11 +605,12 @@ function canvasApp() {
             speed_x = particles[i].speed_x + dInc * interm3[i].dvx;
             speed_y = particles[i].speed_y + dInc * interm3[i].dvy;
             mass1 = particles[i].mass;
+            interm4[i] = {};
             interm4[i].dx = speed_x ;
             interm4[i].dy = speed_y;
             interm4[i].dvx = 0;
             interm4[i].dvy = 0;
-            for(j=0, j < len, j++) {
+            for(j=0; j < len; j++) {
                 if (i == j)
                     continue;
                 x2 = particles[j].x + dInc * interm3[j].dx;
