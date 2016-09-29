@@ -8,7 +8,7 @@ var testData = {
             yMin: -1,
             yMax: 1,
         },
-        timeInterval: 10,
+        timeInterval: 5,
         particles: [
             {
                 x:    0.5,
@@ -16,6 +16,7 @@ var testData = {
                 v_x:  0,
                 v_y:  0,
                 mass: 1,
+                radius: 5,
             },
             {
                 x:    -0.5,
@@ -23,6 +24,7 @@ var testData = {
                 v_x:  0,
                 v_y:  0,
                 mass: 1,
+                radius: 5,
             },
             {
                 x:    0.5,
@@ -30,6 +32,7 @@ var testData = {
                 v_x:  0,
                 v_y:  0,
                 mass: 1,
+                radius: 5,
             },
             {
                 x:    -0.5,
@@ -37,6 +40,7 @@ var testData = {
                 v_x:  0,
                 v_y:  0,
                 mass: 1,
+                radius: 5,
             },
         ],
         info:
@@ -54,7 +58,7 @@ var testData = {
             yMin: -1,
             yMax: 1,
         },
-        timeInterval: 10,
+        timeInterval: 5,
         particles: [
             {
                 x:    0.5,
@@ -62,6 +66,7 @@ var testData = {
                 v_x:  0.1,
                 v_y:  0.1,
                 mass: 1,
+                radius: 5,
             },
             {
                 x:    -0.5,
@@ -69,6 +74,7 @@ var testData = {
                 v_x:  0.1,
                 v_y:  0.1,
                 mass: 1,
+                radius: 5,
             },
             {
                 x:    0.5,
@@ -76,6 +82,7 @@ var testData = {
                 v_x:  0.1,
                 v_y:  0.1,
                 mass: 1,
+                radius: 5,
             },
             {
                 x:    -0.5,
@@ -83,6 +90,7 @@ var testData = {
                 v_x:  0.1,
                 v_y:  0.1,
                 mass: 1,
+                radius: 5,
             },
         ],
         info:

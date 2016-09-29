@@ -458,7 +458,7 @@ function canvasApp() {
             particleLayerContext.lineWidth = 2;
             particleLayerContext.fillStyle = p.color;
             particleLayerContext.beginPath();
-            particleLayerContext.arc(pixX,pixY,particleRad+1,0,Math.PI*2,false);
+            particleLayerContext.arc(pixX,pixY,p.radius+1,0,Math.PI*2,false);
             particleLayerContext.closePath();
             particleLayerContext.fill();
             particleLayerContext.stroke();
@@ -501,6 +501,7 @@ function canvasApp() {
             particles[i].speed_x = initial_data[i].v_x;
             particles[i].speed_y = initial_data[i].v_y;
             particles[i].mass = initial_data[i].mass;
+            particles[i].radius = initial_data[i].radius;
         }
         console.log(particles)
     }
