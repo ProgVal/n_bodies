@@ -1,6 +1,48 @@
 var testData = {
     orbits: [
     {
+        name: "Periodic-looking Chaotic",
+        plotWindow: {
+            xMin: -2,
+            xMax: 2,
+            yMin: -2,
+            yMax: 2,
+        },
+        timeInterval: 5,
+        particles: [
+            {
+                x:    -0.2,
+                y:    0,
+                v_x:  0,
+                v_y:  0.4,
+                mass: 2,
+                radius: 5,
+            },
+            {
+                x:    -0.8,
+                y:    -0.1,
+                v_x:  0,
+                v_y:  -0.4,
+                mass: 2,
+                radius: 5,
+            },
+            {
+                x:    -0.4,
+                y:    -0.2,
+                v_x:  0.7,
+                v_y:  0.2,
+                mass: 0.2,
+                radius: .5,
+            },
+        ],
+        info:
+        {
+            header: "Periodic-looking Chaotic",
+            description: "Periodic-looking Chaotic.",
+            comment: "blah blah",
+        }
+    },
+    {
         name: "Static Square",
         plotWindow: {
             xMin: -1,
