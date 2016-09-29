@@ -674,7 +674,7 @@ function canvasApp() {
             timeFactor = 1;    
         }
         else {
-            timeFactor = (orbitObject.plotWindow.xMax - orbitObject.plotWindow.xMin)/orbitObject.timeInterval;
+            timeFactor = 1./orbitObject.timeInterval;
         }
         
         time = 0;
